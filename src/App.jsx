@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import MainPage from './pages/MainPage'
 import Header from './components/Header'
+import Detail from './pages/Detail'
 
 function App() {
   const [fruit, setFruit] = useState(data)
@@ -17,6 +18,7 @@ function App() {
         
         <Routes>
           <Route path='/' element={<h1>{<MainPage fruit={fruit}/>}</h1>} />
+          <Route path='/detail/:id' element={<Detail fruit={fruit} />} />
           <Route path='/test' element={<h1>테스트페이지</h1>}/>
         </Routes>
         {/* 배경이미지 넣음 */}
