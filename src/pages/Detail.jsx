@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { Nav } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import TabContent from "../components/TabContent";
 
 
 function Detail({fruit}) {
@@ -10,6 +12,7 @@ const selectedFruit = fruit[id];
 const [num, setNum] = useState(0);
 const [num2, setNum2] = useState(0);
 const [alert, setAlert] = useState(true);
+const [tabNumber, setTabNumber] = useState(0);
 
 
 
@@ -80,6 +83,27 @@ if(!selectedFruit) {
           <button className="btn btn-danger">주문하기</button>
         </div>
       </div>
+
+      <Nav className="mt-5" variant="tabs" justify defaultActiveKey="link-0">
+        <Nav.Item>
+          <Nav.Link eventKey="link-0" onClick={()=> {
+            setTabNumber(0);
+          }}>상세정보</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="link-1" onClick={()=> {
+            setTabNumber(1);
+          }}>리뷰</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="link-2" onClick={()=> {
+            setTabNumber(2);
+          }}>반품,교환정보</Nav.Link>
+        </Nav.Item>
+      </Nav>
+
+      <TabContent tabNumber={tabNumber}/>
+
     </div> 
 
 

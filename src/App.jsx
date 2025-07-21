@@ -10,6 +10,7 @@ import Detail from './pages/Detail'
 import About from './pages/About'
 import styled from 'styled-components'
 import axios from 'axios'
+import Cart from './pages/Cart'
 
 // styled-component 기본 사용법
 // const 컴포넌트이름지정 = styled.태그명`
@@ -39,7 +40,7 @@ function App() {
   useEffect(() => {
     axios.get('https://raw.githubusercontent.com/ghkdss/react_sample_data/main/fruit.json')
       .then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         setFruit([...response.data])
       })
       .catch(error => {
@@ -57,6 +58,7 @@ function App() {
         <Routes>
           <Route path='/' element={<h1>{<MainPage fruit={fruit}/>}</h1>} />
           <Route path='/detail/:id' element={<Detail fruit={fruit} />} />
+          <Route path='cart' element={<Cart />} />
           <Route path='/test' element={<h1>테스트페이지</h1>}/>
           <Route path='/about' element={<About />} >
             <Route path='intro' element={<div>회사소개</div>} />
@@ -70,7 +72,7 @@ function App() {
         <button onClick={() => {
           axios.get('https://raw.githubusercontent.com/ghkdss/react_sample_data/main/morefruit.json')
           .then(response => {
-            console.log(response.data)
+            // console.log(response.data)
             setFruit([...fruit, ...response.data])
           })
           .catch(error => {
