@@ -11,7 +11,7 @@ function MainPage({fruit}) {
   
   return (
     <>
-    <div className="main-bg" style={{backgroundImage:'url(' + bg + ')'}} ></div>
+    <div className="main-bg" style={{backgroundImage:'url(' + bg + ')'} } ></div>
     <div className="Container">
           <div className="row">
             {
