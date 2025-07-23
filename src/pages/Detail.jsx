@@ -4,12 +4,14 @@ import { useParams } from "react-router-dom";
 import TabContent from "../components/TabContent";
 import { useDispatch } from "react-redux";
 import { addItem } from "../redux/cartSlice";
+import { setWatched } from "../redux/watchedSlice";
+import { setPageTitle } from "../util/setTitle";
 
 
 function Detail({fruit}) {
 
-const { id } = useParams();
-
+  const { id } = useParams();
+  
 const selectedFruit = fruit[id];
 const [num, setNum] = useState(0);
 const [num2, setNum2] = useState(0);
@@ -48,6 +50,40 @@ useEffect(() => {
 useEffect(() => {
   console.log('useEffect 확인용 콘솔')
 }, [num])
+
+useEffect(() => {
+  // 방금 들어온 상품의 id를 로컬스토리지에 추가
+  let watched = localStorage.getItem('watched');
+  watched = JSON.parse(watched);
+  //includes : 해당 배열에 값이 있으면 true, 없으면 false
+  //이미 최근 본 상품이 3개일때 새로운걸 추가 해야 하므로 기존거를 하나 지우고 추가해야함
+  //개수로만 삭제하니까 중복된걸 보게되면 문제가 생김
+  // 이미 들어있는거면 안지워도 됨 -> "없을때만 삭제를 하면 될듯"
+
+  //if로 watchedrk 3개면서 동일한 값이 존재하는지 물어보고 없을때만 pop로지우기
+  if(watched.length === 3 && !watched.includes(id))
+    watched.pop();
+
+
+  watched = [id, ...watched]
+  // 배열 중복 제거 set은 배열이 아니기때문에 중복 제거 후 다시 배열로 변환
+  watched = new Set(watched);
+  
+
+  watched = Array.from(watched)
+
+  localStorage.setItem('watched', JSON.stringify(watched))
+  dispatch(setWatched(watched) )
+
+
+  
+
+},[])
+
+
+useEffect(() => {
+  setPageTitle(`${id}번 상품`)
+})
 
 
 if(!selectedFruit) {
